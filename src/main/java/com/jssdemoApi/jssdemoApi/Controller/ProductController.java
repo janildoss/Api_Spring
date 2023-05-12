@@ -7,23 +7,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jssdemoApi.jssdemoApi.Repositories.ProductRepository;
 import com.jssdemoApi.jssdemoApi.entities.Department;
 import com.jssdemoApi.jssdemoApi.entities.Product;
 
 @RestController
 @RequestMapping(value = "/products" )
 public class ProductController {
+	private final ProductRepository productRepository;
+
+    ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 	
 	@GetMapping
 	public List<Product> getObjects(){
-		Department d1 =new Department(1L,"Tech");
-		Department d2 =new Department(2L,"Pet");
 		
-		Product p1 = new Product(1L,"Macbook Pro",4000.0,d1);
-		Product p2 = new Product(2L,"Pc Gamer",5000.0,d1);
-		Product p3 = new Product(3L,"Pet House",300.0,d2);
+		//Department d1 =new Department(1L,"Tech");
+		//Department d2 =new Department(2L,"Pet");
 		
-		List<Product>list = Arrays.asList(p1,p2,p3);
+		//Product p1 = new Product(1L,"Macbook Pro",4000.0,d1);
+		//Product p2 = new Product(2L,"Pc Gamer",5000.0,d1);
+		//Product p3 = new Product(3L,"Pet House",300.0,d2);
+		
+		//List<Product>list = Arrays.asList(p1,p2,p3);
+		//Buscando os inserts de produto e department no import.sql
+		
+		List<Product>list = productRepository.findAll();  
 		
 		return list;
 
